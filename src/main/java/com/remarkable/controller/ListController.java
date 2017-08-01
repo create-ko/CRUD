@@ -104,7 +104,6 @@ public class ListController {
 	
 	@RequestMapping(value="/contents", params ="contents_reset")
 	public String contents_cancel(){
-		System.out.println("contents_cancel()");
 		return "redirect:/";
 	}
 	

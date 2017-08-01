@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.remarkable.service.BoardService">
+
+<select id="listAll" resultType="com.remarkable.model.BoardDTO">
+	SELECT * FROM re_table ORDER BY bNum DESC
+</select>
+
+<insert id="write">
+	INSERT INTO re_table (bTitle, bContents, bUser_id) values(#{param1}, #{param2}, #{param3});
+</insert>
+
+<select id="contents" resultType="com.remarkable.model.BoardDTO">
+	SELECT * FROM re_table 
+	<where>
+		bNum=#{param1}
+	</where>
+</select>
+
+<update id="hitcount">
+	UPDATE re_table SET bHit = bHit+1
+	<where>
+		bNum=#{param1}
+	</where>
+</update>
+
+<select id="modify" resultType="com.remarkable.model.BoardDTO">
+	SELECT * FROM re_table
+	<where>
+		bNum=#{param1}
+	</where>
+</select>
+
+<update id="modify_apply">
+	UPDATE re_table SET bTitle = #{param1}, bContents = #{param2}, bUser_id = #{param3}, bDate = NOW()
+	<where>
+		bNum=#{param4}
+	</where>
+</update>
+
+<delete id="delete_contents">
+	DELETE FROM re_table 
+	<where>
+		bNum=#{param1}
+	</where>
+</delete>
+
+<select id="listPage" resultType="com.remarkable.model.BoardDTO">
+<![CDATA[
+select
+ bNum, bTitle, bContents, bUser_id, bDate, bHit
+ from 
+  re_table
+  where bNum > 0
+  order by bNum DESC, bDate desc
+  limit #{page}, 5
+]]>
+</select>
+
+<select id="getTotal" resultType="Integer" >
+	SELECT count(*) FROM re_table
+</select>
+</mapper>

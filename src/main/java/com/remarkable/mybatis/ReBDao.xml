@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.remarkable.service.ReBoardService"> 
+<select id="re_listAll" resultType="com.remarkable.model.ReBoardDTO">
+	SELECT * FROM re_Board_table
+	<where>
+		re_bNum=#{param1}
+	</where>
+	
+	ORDER BY re_Num DESC
+</select>
+
+<insert id="re_create">
+	INSERT INTO re_Board_table (re_Contents, re_bNum) values (#{param2}, #{param1})
+</insert>
+
+<delete id="re_delete">
+	DELETE FROM re_Board_table 
+	<where>
+		re_Num=#{param1}
+	</where>
+</delete>
+
+</mapper>
